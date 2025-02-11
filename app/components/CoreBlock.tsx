@@ -15,6 +15,7 @@ interface Props extends BlockProps {
   component?: string | JSXElementConstructor<any>;
   linkProps?: AnchorHTMLAttributes<HTMLAnchorElement>;
   blockStyles?: TextStyles
+  handleClick?: () => void;
 }
 
 export function CoreBlock({
@@ -26,7 +27,8 @@ export function CoreBlock({
   isFrameless,
   component: Component = 'div',
   linkProps,
-  blockStyles=textStyling
+  blockStyles=textStyling,
+  handleClick
 }: Props) {
   return (
     <Component
@@ -36,6 +38,7 @@ export function CoreBlock({
           'bg-sys-bg-primary border-sys-bg-border border p-6 rounded-3xl shadow-md ',
         className
       )}
+      onClick={handleClick}
       {...linkProps}
     >
       {children}
