@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 
 import { EditFormProps } from '../types';
 import { ImageBlockConfig, ImageSchema } from './config';
+import { FormField } from '@/app/components/FormField';
 
 export function EditForm({
   initialValues,
@@ -26,6 +27,7 @@ export function EditForm({
     <Formik
       initialValues={{
         src: initialValues?.src ?? '',
+        url: initialValues?.url ?? '',
       }}
       validationSchema={ImageSchema}
       onSubmit={onSubmit}
@@ -35,11 +37,18 @@ export function EditForm({
         <Form className="w-full flex flex-col">
           <FormFileUpload
             htmlFor="image-src"
-            onUploaded={(url) => setValues({ src: url })}
+            onUploaded={(url) => setValues(prev => ({...prev, src: url}))}
             initialValue={initialValues?.src}
             referenceId={blockId}
             assetContext="blockAsset"
             blockType="image-block"
+          />
+          <FormField
+            label="Url"
+            name="url"
+            id="url"
+            placeholder="https://example.com"
+            className='mt-4'
           />
           <div className="flex flex-shrink-0 justify-between py-4 border-t border-stone-200">
             <Button variant="secondary" onClick={onClose}>
